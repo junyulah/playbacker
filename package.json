@@ -1,0 +1,26 @@
+{
+    "name": "playbacker",
+    "version": "0.0.1",
+    "description": "playback action",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LoveKino/playbacker.git"
+    },
+    "keywords": [
+        "playback"
+    ],
+    "author": "ddchen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LoveKino/playbacker/issues"
+    },
+    "homepage": "https://github.com/LoveKino/playbacker#readme",
+    "dependencies": {
+        "dom-node-similarity": "~0.0.1",
+        "serialize-front": "~0.0.1"
+    }
+}
