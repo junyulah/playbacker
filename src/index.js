@@ -4,8 +4,6 @@ let startMomenter = require('./startMomenter');
 
 let runAction = require('./runAction');
 
-let playFragment = require('./playFragment');
-
 let getRefreshId = require('./getRefreshId');
 
 let toNextMoment = require('./toNextMoment');
@@ -34,7 +32,6 @@ module.exports = {
     startPlayMoment,
     runAction,
     toNextMoment,
-    playFragment,
     getRefreshId,
     rejectWaitRefreshError,
     playAction,
