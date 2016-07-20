@@ -14,7 +14,7 @@ let rejectWaitRefreshError = require('./rejectWaitRefreshError.js');
 
 let playAction = require('./playAction');
 
-let fragment = require('./fragment');
+let model = require('./model');
 
 let startPlayMoment = startMomenter();
 
@@ -38,5 +38,5 @@ module.exports = {
     getRefreshId,
     rejectWaitRefreshError,
     playAction,
-    fragment
+    model
 };

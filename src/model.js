@@ -15,32 +15,32 @@
  */
 
 let {
-    findIndex, group, findListInGroup, getDistinctIndex, contain
+    findIndex, group, getDistinctIndex, contain
 } = require('./util');
 
-let getActionFragment = (actions, index) => {
-    // group by winId
-    let fragments = getFragments(actions);
-
-    let fragInfo = findListInGroup(fragments, index);
-
-    if (fragInfo) {
-        fragInfo.fragment = fragInfo.list;
-        fragInfo.actions = actions;
-        // chose window
-        let winIndex = getDistinctIndex(getWinIds(fragments), fragInfo.index);
-        return {
-            winIndex,
-            fragInfo
-        };
+/**
+ * action {beforeState, afterState}
+ */
+let toActionList = (nodes) => {
+    let actions = [];
+    let prevState = null;
+    for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        if (node.type === 'action') {
+            node.beforeState = prevState;
+            actions.push(node);
+        } else {
+            let last = actions[actions.length - 1];
+            if (last) {
+                last.afterState = node;
+            }
+            prevState = node;
+        }
     }
-    return {
-        fragInfo,
-        winIndex: -1
-    };
+    return actions;
 };
 
-let getFragments = (actions) => group(actions, (action) => action.winId);
+let getFragments = (nodes) => group(toActionList(nodes), (node) => node.winId);
 
 let getFragmentWinIndex = (fragment, fragments) => {
     let fIndex = findIndex(fragments, fragment);
@@ -87,7 +87,6 @@ let getRefreshIndex = (action, fragments) => {
 let getRefreshId = (fragments, index) => getRefreshIds(fragments)[index];
 
 module.exports = {
-    getActionFragment,
     getFragments,
     getFragmentWinIndex,
     getRefreshIds,
