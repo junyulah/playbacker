@@ -10,8 +10,13 @@ let {
     assertBeforeState, assertAfterState
 } = require('./assertState');
 
-let playAction = (action, refreshId, actionOpts = {}) => {
-    actionOpts.before && actionOpts.before(action);
+let id = v => v;
+
+let playAction = (action, refreshId, {
+    collectAsserts,
+    before = id, after = id
+} = {}) => {
+    before(action);
     // wait the moment
     return toNextMoment(action).then(() => {
         // not in the same page, should not run this action here, wait for refreshing.
@@ -20,16 +25,14 @@ let playAction = (action, refreshId, actionOpts = {}) => {
         }
 
         // assert before state
-        assertBeforeState(action.beforeState);
+        collectAsserts(assertBeforeState(action.beforeState));
 
         // start to run action
-        return runAction(action, {
-            actionOpts
-        }).then(() => {
+        return runAction(action).then(() => {
             // assert after state
-            assertAfterState(action.afterState);
+            collectAsserts(assertAfterState(action.afterState));
             //
-            return actionOpts.after && actionOpts.after(action);
+            return after(action);
         });
     });
 };

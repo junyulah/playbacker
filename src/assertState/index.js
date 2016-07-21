@@ -34,6 +34,8 @@ let parserMap = {
 
 // beforeNextActionRun assertion
 let assertBeforeState = (beforeState) => {
+    let rets = [];
+
     let assertion = beforeState.assertion || {};
     let beforeNextActionRun = assertion.beforeNextActionRun || [];
 
@@ -42,30 +44,37 @@ let assertBeforeState = (beforeState) => {
             type, content, opts
         } = beforeNextActionRun[i];
         // run assertion
-        runAssertion(type, content, opts);
+        let ret = runAssertion(type, content, opts);
+        rets.push(ret);
     }
+    return Promise.all(rets);
 };
 
 let assertAfterState = (afterState) => {
     let assertion = afterState.assertion || {};
     let asyncTime = assertion.asyncTime || [];
-    assertAsyncTime(asyncTime);
+    return assertAsyncTime(asyncTime);
 };
 
 let assertAsyncTime = (asyncTime) => {
+    let rets = [];
     for (let i = 0; i < asyncTime.length; i++) {
         let {
             time = 0, type, content, opts
         } = asyncTime[i];
 
-        setTimeout(() => {
-            runAssertion(type, content, opts);
-        }, time);
+        let ret = delay(time).then(() => runAssertion(type, content, opts));
+        rets.push(ret);
     }
+    return Promise.all(rets);
 };
 
-let runAssertion = (type, content, opts) => {
-    parserMap[type](content, opts);
+let runAssertion = (type, content, opts) => parserMap[type](content, opts);
+
+let delay = (time) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, time);
+    });
 };
 
 module.exports = {

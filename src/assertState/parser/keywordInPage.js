@@ -23,6 +23,10 @@ let getDisplayText = (node) => {
         return '';
     }
 
+    if(node.tagName === 'INPUT') {
+        return node.value || '';
+    }
+
     if (node.tagName === 'HEAD' ||
         node.tagName === 'LINK' ||
         node.tagName === 'SCRIPT' ||

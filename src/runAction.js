@@ -18,11 +18,7 @@ let {
  *      refreshWaitTime
  */
 
-let runAction = (action, opts) => {
-    let {
-        actionOpts
-    } = opts;
-
+let runAction = (action) => {
     // wrap action
     action = wrapAction(action);
 
@@ -30,12 +26,10 @@ let runAction = (action, opts) => {
     return beforeAction(action).then(() => {
         // step 1: find the target node
         let {
-            node, degree
+            node /*, degree*/
         } = findNode(action.source);
-        actionOpts.findedNode && actionOpts.findedNode(node, degree);
         // step2: dispatch the event
         dispatchEvent(node, action.event);
-        actionOpts.dispatchedEvent && actionOpts.dispatchedEvent(action.event);
         // step3: apply some page states
         applyPageState(node, action.attachedUIStates);
     }).then(() => {
