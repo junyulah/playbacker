@@ -21,6 +21,7 @@
     "homepage": "https://github.com/LoveKino/playbacker#readme",
     "dependencies": {
         "dom-node-similarity": "~0.0.1",
-        "serialize-front": "~0.0.1"
+        "serialize-front": "~0.0.1",
+        "page-text": "~0.0.1"
     }
 }
