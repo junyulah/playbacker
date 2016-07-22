@@ -18,14 +18,14 @@ let getClassName = (e) => {
 
 let evalCode = (code) => {
     if (typeof code !== 'string') return code;
-    return `(function(){
+    return eval(`(function(){
     try {
         return ${code}
     } catch(err) {
         console.log('Error happened, when eval code: ${code}');
         throw err;
     }
-})()`;
+})()`);
 };
 
 let isPromise = (v) => v && typeof v === 'object' && typeof v.then === 'function' && typeof v.catch === 'function';
