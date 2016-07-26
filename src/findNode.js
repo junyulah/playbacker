@@ -1,11 +1,11 @@
 'use strict';
 
 let {
-    getSimilarityDegree
+    findMostSimilarNode
 } = require('dom-node-similarity');
 
 let {
-    contain, maxIndex
+    contain
 } = require('./util');
 
 let {
@@ -31,24 +31,25 @@ let findNode = (source) => {
 };
 
 let findTheMostPossibleOne = (nodes, source) => {
-    let degrees = getAllDegree(nodes, source);
-    let index = maxIndex(degrees);
+    let nodeInfos = getAllNodeInfos(nodes);
+    let {
+        index, degree
+    } = findMostSimilarNode(nodeInfos, source);
 
     return {
         node: nodes[index],
-        degree: degrees[index]
+        degree
     };
 };
 
-let getAllDegree = (nodes, source) => {
-    let degrees = [];
+let getAllNodeInfos = (nodes) => {
+    let nodeInfos = [];
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
         let nodeInfo = getNodeInfo(node);
-        let deg = getSimilarityDegree(nodeInfo, source);
-        degrees.push(deg);
+        nodeInfos.push(nodeInfo);
     }
-    return degrees;
+    return nodeInfos;
 };
 
 let getNodeInfo = (node) => {
@@ -78,6 +79,7 @@ let getAllNodes = (parent) => {
             getAllNodes(child)
         );
     }
+
     return nodes;
 };
 
