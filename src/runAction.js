@@ -18,16 +18,20 @@ let {
  *      refreshWaitTime
  */
 
-let runAction = (action) => {
+let runAction = (action, {
+    log
+}) => {
     // wrap action
     action = wrapAction(action);
 
     // after before
     return beforeAction(action).then(() => {
+        log('start to find target node');
         // step 1: find the target node
         let {
-            node /*, degree*/
+            node, degree
         } = findNode(action.source);
+        log(`find node with degree ${degree}`);
         // step2: dispatch the event
         dispatchEvent(node, action.event);
         // step3: apply some page states
