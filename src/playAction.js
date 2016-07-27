@@ -20,7 +20,7 @@ let playAction = (action, refreshId, {
     before(action);
     // wait the moment
 
-    log(`wait to action start momemnt ${action.gapTimeToPrev}`);
+    log(`wait to action start moment ${action.gapTimeToPrev}`);
     return toNextMoment(action).then(() => {
         log('finished waiting');
 
@@ -31,14 +31,18 @@ let playAction = (action, refreshId, {
         }
 
         // assert before state
-        collectAsserts(assertBeforeState(action.beforeState));
+        collectAsserts(assertBeforeState(action.beforeState, {
+            log
+        }));
 
         // start to run action
         return runAction(action, {
             log
         }).then(() => {
             // assert after state
-            collectAsserts(assertAfterState(action.afterState));
+            collectAsserts(assertAfterState(action.afterState, {
+                log
+            }));
             //
             return after(action);
         });

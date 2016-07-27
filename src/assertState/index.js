@@ -39,7 +39,9 @@ let parserMap = {
 };
 
 // beforeNextActionRun assertion
-let assertBeforeState = (beforeState) => {
+let assertBeforeState = (beforeState, {
+    log
+}) => {
     let rets = [];
 
     let assertion = beforeState.assertion || {};
@@ -51,6 +53,17 @@ let assertBeforeState = (beforeState) => {
         } = beforeNextActionRun[i];
         // run assertion
         let ret = runAssertion(type, content, opts);
+        ret = Promise.resolve(ret);
+
+        // log
+        ret.then((res) => {
+            log(`[assertion pass] Assertion type is ${type}. Assertion content is ${JSON.stringify(content)}.`);
+            return res;
+        }).catch(err => {
+            log(`[assertion fail] Assertion type is ${type}. Assertion content is ${JSON.stringify(content)}. Error message ${err}`);
+            throw err;
+        });
+
         rets.push(ret);
     }
     return Promise.all(rets);
@@ -75,7 +88,14 @@ let assertAsyncTime = (asyncTime) => {
     return Promise.all(rets);
 };
 
-let runAssertion = (type, content, opts) => parserMap[type](content, opts);
+let runAssertion = (type, content, opts) => {
+    try {
+        let ret = parserMap[type](content, opts);
+        return Promise.resolve(ret);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
 
 let delay = (time) => {
     return new Promise((resolve) => {
