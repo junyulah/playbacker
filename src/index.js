@@ -16,6 +16,8 @@ let model = require('./model');
 
 let startPlayMoment = startMomenter();
 
+let assertState = require('./assertState');
+
 /**
  * page turning bug fix thoughts
  *
@@ -35,5 +37,6 @@ module.exports = {
     getRefreshId,
     rejectWaitRefreshError,
     playAction,
-    model
+    model,
+    assertState
 };

@@ -75,6 +75,17 @@ let assertAfterState = (afterState) => {
     return assertAsyncTime(asyncTime);
 };
 
+let assertLastState = (afterState, {
+    log,
+    delayTime = 3000
+} = {}) => {
+    return delay(delayTime).then(() => {
+        return assertBeforeState(afterState, {
+            log
+        });
+    });
+};
+
 let assertAsyncTime = (asyncTime) => {
     let rets = [];
     for (let i = 0; i < asyncTime.length; i++) {
@@ -105,5 +116,6 @@ let delay = (time) => {
 
 module.exports = {
     assertBeforeState,
-    assertAfterState
+    assertAfterState,
+    assertLastState
 };

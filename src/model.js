@@ -86,10 +86,23 @@ let getRefreshIndex = (action, fragments) => {
 
 let getRefreshId = (fragments, index) => getRefreshIds(fragments)[index];
 
+let isLastAction = (fragments, action) => {
+    let lastFragment = fragments[fragments.length - 1];
+    return action === lastFragment[lastFragment.length - 1];
+};
+
+let getLastAction = (fragments) => {
+    let lastFragment = fragments[fragments.length - 1];
+    if (!lastFragment || !lastFragment.length) return null;
+    return lastFragment[lastFragment.length - 1];
+};
+
 module.exports = {
     getFragments,
     getFragmentWinIndex,
     getRefreshIds,
     getRefreshIndex,
-    getRefreshId
+    getRefreshId,
+    isLastAction,
+    getLastAction
 };
