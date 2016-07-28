@@ -44,8 +44,7 @@ let assertBeforeState = (beforeState, {
 }) => {
     let rets = [];
 
-    let assertion = beforeState.assertion || {};
-    let beforeNextActionRun = assertion.beforeNextActionRun || [];
+    let beforeNextActionRun = getBeforeNextActionRun(beforeState);
 
     for (let i = 0; i < beforeNextActionRun.length; i++) {
         let {
@@ -67,6 +66,12 @@ let assertBeforeState = (beforeState, {
         rets.push(ret);
     }
     return Promise.all(rets);
+};
+
+let getBeforeNextActionRun = (state) => {
+    let assertion = state.assertion || {};
+    let beforeNextActionRun = assertion.beforeNextActionRun || [];
+    return beforeNextActionRun;
 };
 
 let assertAfterState = (afterState) => {
@@ -117,5 +122,6 @@ let delay = (time) => {
 module.exports = {
     assertBeforeState,
     assertAfterState,
-    assertLastState
+    assertLastState,
+    getBeforeNextActionRun
 };
