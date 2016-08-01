@@ -59,10 +59,10 @@ let assertBeforeState = (beforeState, {
 
         // log
         ret.then((res) => {
-            log(`[assertion pass] Assertion type is ${type}. Assertion content is ${JSON.stringify(content)}.`);
+            log(`[assertion pass] Assertion type is ${type}. Assertion content is ${JSON.stringify(content, null, 4)}.`);
             return res;
         }).catch(err => {
-            log(`[assertion fail] Assertion type is ${type}. Assertion content is ${JSON.stringify(content)}. Error message ${err}`);
+            log(`[assertion fail] Assertion type is ${type}. Assertion content is ${JSON.stringify(content, null, 4)}. Error message ${err}`);
             throw err;
         });
 
