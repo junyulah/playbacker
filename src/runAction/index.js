@@ -4,7 +4,7 @@ let findNode = require('./findNode');
 
 let {
     evalCode
-} = require('./util');
+} = require('../util');
 
 /**
  *
@@ -16,11 +16,19 @@ let {
  *      waitTimeout
  *      waitTime
  *      refreshWaitTime
+ *
+ *      event
+ *      source
+ *      attachedUIStates
  */
 
+let id = v => v;
+
 let runAction = (action, {
-    log
-}) => {
+    similarityFailThreshold = 0.75,
+        log = id
+} = {}) => {
+
     // wrap action
     action = wrapAction(action);
 
@@ -30,7 +38,9 @@ let runAction = (action, {
         // step 1: find the target node
         let {
             node, degree
-        } = findNode(action.source);
+        } = findNode(action.source, {
+            similarityFailThreshold
+        });
         log(`find node with degree ${degree}`);
         // step2: dispatch the event
         dispatchEvent(node, action.event);
@@ -61,11 +71,16 @@ let afterAction = (action) => {
 };
 
 let applyPageState = (node, attachedUIStates) => {
-    window.scrollTo(attachedUIStates.window.pageXOffset, attachedUIStates.window.pageYOffset);
+    let windowInfo = attachedUIStates.window;
+    if (windowInfo) {
+        window.scrollTo(windowInfo.pageXOffset, windowInfo.pageYOffset);
+    }
 
     let current = attachedUIStates.current;
-    for (let name in current) {
-        node[name] = current[name];
+    if (current) {
+        for (let name in current) {
+            node[name] = current[name];
+        }
     }
 };
 
@@ -75,7 +90,5 @@ let dispatchEvent = (node, eInfo) => {
     let event = new Event(type, eInfo);
     node.dispatchEvent(event);
 };
-
-let id = v => v;
 
 module.exports = runAction;

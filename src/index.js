@@ -2,13 +2,7 @@
 
 let startMomenter = require('./startMomenter');
 
-let runAction = require('./runAction');
-
-let getRefreshId = require('./getRefreshId');
-
-let toNextMoment = require('./toNextMoment');
-
-let rejectWaitRefreshError = require('./rejectWaitRefreshError.js');
+let toNextMoment = require('./playAction/toNextMoment');
 
 let playAction = require('./playAction');
 
@@ -32,10 +26,7 @@ let assertState = require('./assertState');
 
 module.exports = {
     startPlayMoment,
-    runAction,
     toNextMoment,
-    getRefreshId,
-    rejectWaitRefreshError,
     playAction,
     model,
     assertState

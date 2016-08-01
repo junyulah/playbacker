@@ -2,18 +2,19 @@
 
 let toNextMoment = require('./toNextMoment');
 
-let runAction = require('./runAction');
+let runAction = require('../runAction');
 
 let rejectWaitRefreshError = require('./rejectWaitRefreshError');
 
 let {
     assertBeforeState, assertAfterState
-} = require('./assertState');
+} = require('../assertState');
 
 let id = v => v;
 
 let playAction = (action, refreshId, {
     collectAsserts,
+    similarityFailThreshold,
     before = id, after = id, log = id
 } = {}) => {
     log(`start to play action ${action.id}`);
@@ -37,7 +38,8 @@ let playAction = (action, refreshId, {
 
         // start to run action
         return runAction(action, {
-            log
+            log,
+            similarityFailThreshold
         }).then(() => {
             // assert after state
             collectAsserts(assertAfterState(action.afterState, {

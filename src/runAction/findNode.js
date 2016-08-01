@@ -6,13 +6,15 @@ let {
 
 let {
     contain
-} = require('./util');
+} = require('../util');
 
 let {
     serializeNode, serializePath
 } = require('serialize-front');
 
-let findNode = (source) => {
+let findNode = (source, {
+    similarityFailThreshold
+}) => {
     let {
         path
     } = source;
@@ -27,7 +29,11 @@ let findNode = (source) => {
     }
 
     // find the most possibility one
-    return findTheMostPossibleOne(nodes, source);
+    let ret = findTheMostPossibleOne(nodes, source);
+    if (ret.degree < similarityFailThreshold) {
+        throw new Error(`node similarity degree is ${ret.degree} lower than ${similarityFailThreshold}. finded node is ${ret.node}, source is ${JSON.stringify(source)}`);
+    }
+    return ret;
 };
 
 let findTheMostPossibleOne = (nodes, source) => {
