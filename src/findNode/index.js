@@ -13,6 +13,7 @@ let {
 } = require('serialize-front');
 
 let findNode = (source, {
+    nodes,
     similarityFailThreshold
 }) => {
     let {
@@ -22,7 +23,7 @@ let findNode = (source, {
     path = path.slice(0);
 
     // filter all nodes by some informations
-    let nodes = getAllNodes();
+    nodes = nodes || getAllNodes();
 
     if (!nodes.length) {
         throw new Error('fail to find target node for source' + JSON.stringify(source));
@@ -89,4 +90,6 @@ let getAllNodes = (parent) => {
     return nodes;
 };
 
-module.exports = findNode;
+module.exports = {
+    findNode, getAllNodes
+};

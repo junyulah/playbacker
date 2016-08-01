@@ -1,6 +1,8 @@
 'use strict';
 
-let findNode = require('./findNode');
+let {
+    findNode
+} = require('../findNode');
 
 let {
     evalCode
@@ -25,7 +27,7 @@ let {
 let id = v => v;
 
 let runAction = (action, {
-    similarityFailThreshold = 0.75,
+    similarityFailThreshold = 0.45,
         log = id
 } = {}) => {
 

@@ -6,6 +6,8 @@ let urlMatch = require('./parser/urlMatch');
 
 let code = require('./parser/codeRule');
 
+let pageElement = require('./parser/pageElement');
+
 /**
  * state assert data structure
  *
@@ -35,7 +37,8 @@ let code = require('./parser/codeRule');
 let parserMap = {
     keywordInPage,
     urlMatch,
-    code
+    code,
+    pageElement
 };
 
 // beforeNextActionRun assertion
