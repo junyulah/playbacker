@@ -59,16 +59,19 @@ let getAllNodeInfos = (nodes) => {
     return nodeInfos;
 };
 
+// TODO opt mutable
 let getNodeInfo = (node) => {
     let nodeInfo = serializeNode(node, {
         textContent: true
     });
     let path = serializePath(node);
 
-    return {
+    let ret = {
         node: nodeInfo,
         path
     };
+
+    return ret;
 };
 
 let getAllNodes = (parent) => {
