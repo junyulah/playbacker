@@ -75,19 +75,36 @@ let getAllNodes = (parent) => {
     parent = parent || document;
 
     let nodes = [];
+    if (parent.querySelectorAll) {
+        nodes = parent.querySelectorAll('*');
+    } else {
+        nodes = degradeFindAll(parent);
+    }
+
+    let rets = [];
+    for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        if (!contain(['HEAD', 'SCRIPT', 'LINK'], node.tagName)) {
+            rets.push(node);
+        }
+    }
+
+    return rets;
+};
+
+let degradeFindAll = (parent) => {
+    let nodes = [];
 
     for (let i = 0; i < parent.children.length; i++) {
         let child = parent.children[i];
-        if (contain(['HEAD', 'SCRIPT', 'LINK'], child.tagName)) {
-            continue;
-        }
         nodes.push(child);
         nodes = nodes.concat(
-            getAllNodes(child)
+            degradeFindAll(child)
         );
     }
 
     return nodes;
+
 };
 
 module.exports = {

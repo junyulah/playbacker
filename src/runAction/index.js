@@ -27,7 +27,7 @@ let {
 let id = v => v;
 
 let runAction = (action, {
-    similarityFailThreshold = 0.45,
+    similarityFailThreshold = 0.15,
         log = id
 } = {}) => {
 
