@@ -17,7 +17,10 @@ let playAction = (action, refreshId, {
     similarityFailThreshold,
     before = id, after = id, log = id
 } = {}) => {
-    log(`start to play action ${action.id}`);
+    log(`start to play action ${action.id}`, {
+        data: action,
+        type: 'action_start'
+    });
     before(action);
     // wait the moment
 
@@ -45,6 +48,11 @@ let playAction = (action, refreshId, {
             collectAsserts(assertAfterState(action.afterState, {
                 log
             }));
+
+            log(`finished action ${action.id}`, {
+                data: action,
+                type: 'action_finished'
+            });
             //
             return after(action);
         });
