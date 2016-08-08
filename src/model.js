@@ -15,8 +15,8 @@
  */
 
 let {
-    findIndex, group, getDistinctIndex, contain
-} = require('./util');
+    findIndex, contain
+} = require('bolzano');
 
 /**
  * action {beforeState, afterState}
@@ -95,6 +95,42 @@ let getLastAction = (fragments) => {
     let lastFragment = fragments[fragments.length - 1];
     if (!lastFragment || !lastFragment.length) return null;
     return lastFragment[lastFragment.length - 1];
+};
+
+let group = (list = [], feature) => {
+    let fragments = [];
+    let cur = null;
+    let fragment = null;
+    for (let i = 0; i < list.length; i++) {
+        let item = list[i];
+        if (!cur) {
+            cur = feature(item);
+            fragment = [item];
+            fragments.push(fragment);
+        } else {
+            if (feature(item) === cur) {
+                fragment.push(item);
+            } else {
+                //
+                cur = feature(item);
+                fragment = [item];
+                fragments.push(fragment);
+            }
+        }
+    }
+    return fragments;
+};
+
+let getDistinctIndex = (Ids, index) => {
+    let collects = [];
+    for (let i = 0; i <= index; i++) {
+        let id = Ids[i];
+        if (!contain(collects, id)) {
+            collects.push(id);
+        }
+    }
+
+    return findIndex(collects, Ids[index]);
 };
 
 module.exports = {

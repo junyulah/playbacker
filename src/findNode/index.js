@@ -6,7 +6,7 @@ let {
 
 let {
     contain
-} = require('../util');
+} = require('bolzano');
 
 let {
     serializeNode, serializePath

@@ -6,7 +6,7 @@ let {
 
 let {
     evalCode
-} = require('../util');
+} = require('jsenhance');
 
 /**
  *

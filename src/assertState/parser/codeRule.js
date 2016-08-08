@@ -2,7 +2,7 @@
 
 let {
     evalCode
-} = require('../../util');
+} = require('jsenhance');
 
 module.exports = (code) => {
     return evalCode(code);
