@@ -8,6 +8,10 @@ let {
     evalCode
 } = require('jsenhance');
 
+let {
+    map
+} = require('bolzano');
+
 /**
  *
  * action interface
@@ -89,8 +93,29 @@ let applyPageState = (node, attachedUIStates) => {
 let dispatchEvent = (node, eInfo) => {
     let type = eInfo.type;
     // trigger event
-    let event = new Event(type, eInfo);
+    let event = new(window[eInfo.__proto__source])(type, convertEventInfo(eInfo, node));
     node.dispatchEvent(event);
+};
+
+let convertEventInfo = (eInfo, node) => {
+    let type = eInfo.type;
+    if (type === 'touchstart' ||
+        type === 'touchmove' ||
+        type === 'touchend' ||
+        type === 'touchcancel') {
+
+        eInfo.touches = getTouches(eInfo.touches, node);
+        eInfo.changedTouches = getTouches(eInfo.changedTouches, node);
+        eInfo.targetTouches = getTouches(eInfo.targetTouches, node);
+    }
+    return eInfo;
+};
+
+let getTouches = (touches = [], node) => {
+    return map(touches, (touch) => {
+        touch.target = node;
+        return new Touch(touch);
+    });
 };
 
 module.exports = runAction;
