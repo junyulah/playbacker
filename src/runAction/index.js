@@ -93,7 +93,10 @@ let applyPageState = (node, attachedUIStates) => {
 let dispatchEvent = (node, eInfo) => {
     let type = eInfo.type;
     // trigger event
-    let event = new(window[eInfo.__proto__source])(type, convertEventInfo(eInfo, node));
+    let EventClz = window[eInfo.__proto__source];
+    let event = new EventClz(type, convertEventInfo(eInfo, node));
+    // TODO bug
+    //event.isTrusted = true;
     node.dispatchEvent(event);
 };
 
