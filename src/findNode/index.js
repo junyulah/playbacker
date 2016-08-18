@@ -12,7 +12,30 @@ let {
     serializeNode, serializePath
 } = require('serialize-front');
 
-let findNode = (source, {
+/**
+ * nodeMap = {
+ *     domNodeId: node
+ * }
+ */
+let nodeMap = {};
+
+let findNode = (source, opts) => {
+    if (source.domNodeId) {
+        // find in cache
+        if (nodeMap[source.domNodeId]) {
+            return nodeMap[source.domNodeId];
+        } else {
+            let node = queryNode(source, opts);
+            nodeMap[source.domNodeId] = node;
+            return node;
+        }
+    } else {
+        let node = queryNode(source, opts);
+        return node;
+    }
+};
+
+let queryNode = (source, {
     nodes,
     similarityFailThreshold
 }) => {
@@ -36,6 +59,7 @@ let findNode = (source, {
     }
     return ret;
 };
+
 
 let findTheMostPossibleOne = (nodes, source) => {
     let nodeInfos = getAllNodeInfos(nodes);

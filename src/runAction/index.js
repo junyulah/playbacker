@@ -47,6 +47,7 @@ let runAction = (action, {
         } = findNode(action.source, {
             similarityFailThreshold
         });
+
         log(`find node with degree ${degree}`);
         // step2: dispatch the event
         dispatchEvent(node, action.event);
