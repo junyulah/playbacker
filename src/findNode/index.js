@@ -21,9 +21,11 @@ let nodeMap = {};
 
 let findNode = (source, opts) => {
     if (source.domNodeId) {
+        let savedNode = nodeMap[source.domNodeId];
         // find in cache
-        if (nodeMap[source.domNodeId]) {
-            return nodeMap[source.domNodeId];
+        if (savedNode &&
+            getRoot(savedNode.node) === document) {
+            return savedNode;
         } else {
             let node = queryNode(source, opts);
             nodeMap[source.domNodeId] = node;
@@ -33,6 +35,14 @@ let findNode = (source, opts) => {
         let node = queryNode(source, opts);
         return node;
     }
+};
+
+let getRoot = (node) => {
+    let root = node;
+    while (root.parentNode) {
+        root = root.parentNode;
+    }
+    return root;
 };
 
 let queryNode = (source, {
