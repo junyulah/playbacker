@@ -1,14 +1,10 @@
 'use strict';
 
-let startMomenter = require('./startMomenter');
-
 let toNextMoment = require('./playAction/toNextMoment');
 
 let playAction = require('./playAction');
 
 let model = require('./model');
-
-let startPlayMoment = startMomenter();
 
 let assertState = require('./assertState');
 
@@ -25,7 +21,6 @@ let assertState = require('./assertState');
  */
 
 module.exports = {
-    startPlayMoment,
     toNextMoment,
     playAction,
     model,
