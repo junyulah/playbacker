@@ -96,7 +96,8 @@ let getAllNodeInfos = (nodes) => {
 // TODO opt mutable
 let getNodeInfo = (node) => {
     let nodeInfo = serializeNode(node, {
-        textContent: true
+        textContent: true,
+        style: true
     });
     let path = serializePath(node);
 
