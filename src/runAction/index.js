@@ -49,10 +49,14 @@ let runAction = (action, {
         });
 
         log(`find node with degree ${degree}`);
-        // step2: dispatch the event
-        dispatchEvent(node, action.event);
-        // step3: apply some page states
+        // step2: apply some page states
+        // ! must apply some states first, before
+        // dispatch events.
+        // eg: input event and target.value
         applyPageState(node, action.attachedUIStates);
+
+        // step3: dispatch the event
+        dispatchEvent(node, action.event);
     }).then(() => {
         return afterAction(action);
     });
