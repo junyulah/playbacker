@@ -4,7 +4,7 @@ let toNextMoment = require('./toNextMoment');
 
 let runAction = require('../runAction');
 
-let rejectWaitRefreshError = require('./rejectWaitRefreshError');
+// let rejectWaitRefreshError = require('./rejectWaitRefreshError');
 
 let {
     assertBeforeState, assertAfterState
@@ -29,10 +29,12 @@ let playAction = (action, refreshId, {
         log('finished waiting');
 
         // not in the same page, should not run this action here, wait for refreshing.
+        /*
         if (refreshId !== action.refreshId) {
             log('not in the same page, should not run this action here, wait for refreshing');
             return rejectWaitRefreshError(action, refreshId);
         }
+       */
 
         // assert before state
         collectAsserts(assertBeforeState(action.beforeState, {
