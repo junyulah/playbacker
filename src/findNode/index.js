@@ -9,7 +9,7 @@ let {
 } = require('bolzano');
 
 let {
-    serializeNode, serializePath
+    serializeNodes
 } = require('serialize-front');
 
 /**
@@ -49,12 +49,6 @@ let queryNode = (source, {
     nodes,
     similarityFailThreshold
 }) => {
-    let {
-        path
-    } = source;
-
-    path = path.slice(0);
-
     // filter all nodes by some informations
     nodes = nodes || getAllNodes();
 
@@ -64,15 +58,16 @@ let queryNode = (source, {
 
     // find the most possibility one
     let ret = findTheMostPossibleOne(nodes, source);
+
     if (ret.degree < similarityFailThreshold) {
         throw new Error(`node similarity degree is ${ret.degree} lower than ${similarityFailThreshold}. finded node is ${ret.node}, source is ${JSON.stringify(source)}`);
     }
     return ret;
 };
 
-
 let findTheMostPossibleOne = (nodes, source) => {
-    let nodeInfos = getAllNodeInfos(nodes);
+    let nodeInfos = serializeNodes(nodes);
+
     let {
         index, degree
     } = findMostSimilarNode(nodeInfos, source);
@@ -81,32 +76,6 @@ let findTheMostPossibleOne = (nodes, source) => {
         node: nodes[index],
         degree
     };
-};
-
-let getAllNodeInfos = (nodes) => {
-    let nodeInfos = [];
-    for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
-        let nodeInfo = getNodeInfo(node);
-        nodeInfos.push(nodeInfo);
-    }
-    return nodeInfos;
-};
-
-// TODO opt mutable
-let getNodeInfo = (node) => {
-    let nodeInfo = serializeNode(node, {
-        textContent: true,
-        style: true
-    });
-    let path = serializePath(node);
-
-    let ret = {
-        node: nodeInfo,
-        path
-    };
-
-    return ret;
 };
 
 let getAllNodes = (parent) => {
