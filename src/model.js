@@ -15,7 +15,7 @@
  */
 
 let {
-    findIndex, contain
+    findIndex, contain, reduce
 } = require('bolzano');
 
 /**
@@ -97,6 +97,15 @@ let getLastAction = (fragments) => {
     return lastFragment[lastFragment.length - 1];
 };
 
+let getActionOrder = (fragments, action) => {
+    let list = reduce(fragments, (prev, cur) => {
+        return prev.concat(cur);
+    }, []);
+    return findIndex(list, action, {
+        eq: (v1, v2) => v1.id === v2.id
+    });
+};
+
 let group = (list = [], feature) => {
     let fragments = [];
     let cur = null;
@@ -140,5 +149,6 @@ module.exports = {
     getRefreshIndex,
     getRefreshId,
     isLastAction,
-    getLastAction
+    getLastAction,
+    getActionOrder
 };
