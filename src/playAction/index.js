@@ -14,7 +14,6 @@ let id = v => v;
 
 let playAction = (action, refreshId, {
     collectAsserts,
-    similarityFailThreshold,
     before = id, after = id, log = id
 } = {}) => {
     log(`start to play action ${action.id}`, {
@@ -43,8 +42,7 @@ let playAction = (action, refreshId, {
 
         // start to run action
         return runAction(action, {
-            log,
-            similarityFailThreshold
+            log
         }).then(() => {
             // assert after state
             collectAsserts(assertAfterState(action.afterState, {

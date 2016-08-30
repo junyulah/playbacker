@@ -31,9 +31,9 @@ let {
 let id = v => v;
 
 let runAction = (action, {
-    similarityFailThreshold = 0.15,
-        log = id
+    log = id
 } = {}) => {
+    let similarityFailThreshold = action.similarityFailThreshold || 0.05;
 
     // wrap action
     action = wrapAction(action);
@@ -45,7 +45,8 @@ let runAction = (action, {
         let {
             node, degree
         } = findNode(action.source, {
-            similarityFailThreshold
+            similarityFailThreshold,
+            selector: action.selector
         });
 
         log(`find node with degree ${degree}`);

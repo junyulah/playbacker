@@ -47,10 +47,11 @@ let getRoot = (node) => {
 
 let queryNode = (source, {
     nodes,
-    similarityFailThreshold
+    similarityFailThreshold,
+    selector
 }) => {
     // filter all nodes by some informations
-    nodes = nodes || getAllNodes();
+    nodes = nodes || getAllNodes(null, selector);
 
     if (!nodes.length) {
         throw new Error('fail to find target node for source' + JSON.stringify(source));
@@ -78,12 +79,12 @@ let findTheMostPossibleOne = (nodes, source) => {
     };
 };
 
-let getAllNodes = (parent) => {
+let getAllNodes = (parent, selector = '*') => {
     parent = parent || document;
 
     let nodes = [];
     if (parent.querySelectorAll) {
-        nodes = parent.querySelectorAll('*');
+        nodes = parent.querySelectorAll(selector);
     } else {
         nodes = degradeFindAll(parent);
     }
