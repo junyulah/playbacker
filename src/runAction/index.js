@@ -2,7 +2,7 @@
 
 let {
     findNode
-} = require('../findNode');
+} = require('find-dom-node');
 
 let {
     evalCode

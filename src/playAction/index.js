@@ -8,7 +8,7 @@ let runAction = require('../runAction');
 
 let {
     assertBeforeState, assertAfterState
-} = require('../assertState');
+} = require('front-assertion');
 
 let id = v => v;
 

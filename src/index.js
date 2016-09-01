@@ -6,7 +6,7 @@ let playAction = require('./playAction');
 
 let model = require('./model');
 
-let assertState = require('./assertState');
+let assertState = require('front-assertion');
 
 /**
  * page turning bug fix thoughts
