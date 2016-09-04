@@ -27,6 +27,7 @@
         "jsenhance": "~0.0.1",
         "bolzano": "~0.0.1",
         "find-dom-node": "~0.0.1",
-        "front-assertion": "~0.0.1"
+        "front-assertion": "~0.0.1",
+        "ajaxproxy": "~0.0.1"
     }
 }
