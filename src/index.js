@@ -1,12 +1,10 @@
 'use strict';
 
-let toNextMoment = require('./playAction/toNextMoment');
-
-let playAction = require('./playAction');
-
 let model = require('./model');
 
 let assertState = require('front-assertion');
+
+let playNodes = require('./playNodes');
 
 /**
  * page turning bug fix thoughts
@@ -21,8 +19,7 @@ let assertState = require('front-assertion');
  */
 
 module.exports = {
-    toNextMoment,
-    playAction,
     model,
-    assertState
+    assertState,
+    playNodes
 };
