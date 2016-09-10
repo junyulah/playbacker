@@ -1,35 +1,34 @@
 {
-  "name": "playbacker",
-  "version": "0.0.1",
-  "description": "playback action",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LoveKino/playbacker.git"
-  },
-  "keywords": [
-    "playback"
-  ],
-  "author": "ddchen",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LoveKino/playbacker/issues"
-  },
-  "homepage": "https://github.com/LoveKino/playbacker#readme",
-  "dependencies": {},
-  "link_dependencies": {
-    "dom-node-similarity": "~0.0.1",
-    "serialize-front": "~0.0.1",
-    "page-text": "~0.0.1",
-    "jsenhance": "~0.0.1",
-    "bolzano": "~0.0.1",
-    "find-dom-node": "~0.0.1",
-    "front-assertion": "~0.0.1",
-    "ajaxproxy": "~0.0.1",
-    "play-web-action": "~0.0.1",
-    "page-queue-model": "~0.0.1"
-  }
+    "name": "playbacker",
+    "version": "0.0.1",
+    "description": "playback action",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LoveKino/playbacker.git"
+    },
+    "keywords": [
+        "playback"
+    ],
+    "author": "ddchen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LoveKino/playbacker/issues"
+    },
+    "homepage": "https://github.com/LoveKino/playbacker#readme",
+    "dependencies": {},
+    "link_dependencies": {
+        "dom-node-similarity": "~0.0.1",
+        "serialize-front": "~0.0.1",
+        "page-text": "~0.0.1",
+        "jsenhance": "~0.0.1",
+        "bolzano": "~0.0.1",
+        "find-dom-node": "~0.0.1",
+        "ajaxproxy": "~0.0.1",
+        "play-web-action": "~0.0.1",
+        "page-queue-model": "~0.0.1"
+    }
 }
