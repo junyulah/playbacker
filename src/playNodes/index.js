@@ -48,30 +48,16 @@ module.exports = (nodes, {
     }) => {
         // progress
         let runItem = (action) => {
-            log(`start to play action ${action.id}`, {
-                data: action,
-                type: 'action_start'
-            });
-
             // before wait
             return Promise.resolve(beforeWaitNextMoment(action)).then(ret => {
                 if (ret === 'stop') return;
 
-                // wait the moment
-                log(`wait to action start moment ${action.gapTimeToPrev}`);
                 return toNextMoment(action).then(() => {
-                    log('finished waiting');
-
                     beforeRunAction(action);
 
                     // run action
                     runAction(action, {
                         log
-                    });
-
-                    log(`finished action ${action.id}`, {
-                        data: action,
-                        type: 'action_finished'
                     });
 
                     return afterRunAction(action);
