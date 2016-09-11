@@ -53,14 +53,14 @@ module.exports = (nodes, {
                 if (ret === 'stop') return;
 
                 return toNextMoment(action).then(() => {
-                    beforeRunAction(action);
-
-                    // run action
-                    runAction(action, {
-                        log
+                    return Promise.resolve(beforeRunAction(action)).then(() => {
+                        // run action
+                        return runAction(action, {
+                            log
+                        });
+                    }).then(() => {
+                        return afterRunAction(action);
                     });
-
-                    return afterRunAction(action);
                 }).catch((err) => {
                     return errorAction(action, err);
                 });
