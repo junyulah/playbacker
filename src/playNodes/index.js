@@ -62,7 +62,8 @@ module.exports = (nodes, {
                         return afterRunAction(action);
                     });
                 }).catch((err) => {
-                    return errorAction(action, err);
+                    errorAction(action, err);
+                    throw err;
                 });
             });
         };
